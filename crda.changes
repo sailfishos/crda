@@ -1,3 +1,6 @@
+* Fri MAy 25 2012 Marko Saukko <sage@merproject.org> - 1.1.2
+- Added crda-1.1.2-add-libnl32-support.patch to build against libnl 3.2
+
 * Wed Dec 14 2011 Marko Saukko <marko.saukko@cybercom.com> - 1.1.2
 - Updated to version 1.1.2
 

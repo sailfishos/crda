@@ -11,12 +11,14 @@ Description: |
 URL        : http://wireless.kernel.org/en/developers/Regulatory/
 Sources    : 
     - http://wireless.kernel.org/download/crda/crda-%{version}.tar.bz2
+Patches:
+    - crda-1.1.2-add-libnl32-support.patch
 PkgBR      :
     - python 
     - m2crypto
     - wireless-regdb
 PkgConfigBR:
-    - libnl-1
+    - libnl-3.0
     - libgcrypt
 Requires   :
     - udev
