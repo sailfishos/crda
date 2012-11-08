@@ -1,3 +1,6 @@
+* Thu Nov 08 2012 Carsten Munk <carsten.munk@jollamobile.com> - 1.1.2
+- Switch from m2crypto dep to python-M2Crypto 
+
 * Fri MAy 25 2012 Marko Saukko <sage@merproject.org> - 1.1.2
 - Added crda-1.1.2-add-libnl32-support.patch to build against libnl 3.2
 

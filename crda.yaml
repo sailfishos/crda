@@ -15,7 +15,7 @@ Patches:
     - crda-1.1.2-add-libnl32-support.patch
 PkgBR      :
     - python 
-    - m2crypto
+    - python-M2Crypto
     - wireless-regdb
 PkgConfigBR:
     - libnl-3.0
