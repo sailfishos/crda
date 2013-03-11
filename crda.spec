@@ -9,14 +9,13 @@ Name:       crda
 # << macros
 
 Summary:    Central regulatory domain agent for 802.11 wireless networking
-Version:    1.1.2
+Version:    1.1.3
 Release:    1
 Group:      System/Networking
 License:    ISC
 URL:        http://wireless.kernel.org/en/developers/Regulatory/
 Source0:    http://wireless.kernel.org/download/crda/crda-%{version}.tar.bz2
 Source100:  crda.yaml
-Patch0:     crda-1.1.2-add-libnl32-support.patch
 Requires:   udev
 Requires:   iw
 Requires:   wireless-regdb
@@ -37,8 +36,6 @@ communication from the kernel.
 %prep
 %setup -q -n %{name}-%{version}
 
-# crda-1.1.2-add-libnl32-support.patch
-%patch0 -p1
 # >> setup
 # << setup
 
