@@ -5,8 +5,7 @@ Release:    1
 Group:      System/Networking
 License:    ISC
 URL:        http://wireless.kernel.org/en/developers/Regulatory/
-Source0:    http://wireless.kernel.org/download/crda/crda-%{version}.tar.bz2
-Source100:  crda.yaml
+Source0:    %{name}-%{version}.tar.bz2
 Requires:   udev
 Requires:   iw
 Requires:   wireless-regdb
