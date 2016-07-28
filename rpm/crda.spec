@@ -34,11 +34,17 @@ Header files to make use of libreg for accessing regulatory info.
 %setup -q -n %{name}-%{version}/crda
 
 %build
+# Drop ldconfig as it breaks the build in OBS. Also we need this only in package install time
+# which is handled by %post
+sed -i '/$(Q)ldconfig/d' Makefile
 PUBKEY_DIR=%{_libdir}/crda/pubkeys/ RUNTIME_PUBKEY_DIR=%{_libdir}/crda/pubkeys/ make %{?jobs:-j%jobs}
 
 %install
 rm -rf %{buildroot}
 %make_install
+
+%post
+/sbin/ldconfig || :
 
 %files
 %defattr(-,root,root,-)
