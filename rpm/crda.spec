@@ -1,6 +1,6 @@
 Name:       crda
 Summary:    Central regulatory domain agent for 802.11 wireless networking
-Version:    3.18
+Version:    4.14
 Release:    1
 Group:      System/Networking
 License:    ISC
