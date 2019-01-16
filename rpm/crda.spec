@@ -29,6 +29,14 @@ Requires:   %{name} = %{version}-%{release}
 %description devel
 Header files to make use of libreg for accessing regulatory info.
 
+%package doc
+Summary:   Documentation for %{name}
+Group:     Documentation
+Requires:  %{name} = %{version}-%{release}
+
+%description doc
+Man pages for %{name}.
+
 
 %prep
 %setup -q -n %{name}-%{version}/crda
@@ -37,25 +45,25 @@ Header files to make use of libreg for accessing regulatory info.
 # Drop ldconfig as it breaks the build in OBS. Also we need this only in package install time
 # which is handled by %post
 sed -i '/$(Q)ldconfig/d' Makefile
-PUBKEY_DIR=%{_libdir}/crda/pubkeys/ RUNTIME_PUBKEY_DIR=%{_libdir}/crda/pubkeys/ make %{?jobs:-j%jobs}
+PUBKEY_DIR=%{_libdir}/crda/pubkeys/ RUNTIME_PUBKEY_DIR=%{_libdir}/crda/pubkeys/ make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
 %make_install
+
+mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
+install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} README
 
 %post
 /sbin/ldconfig || :
 
 %files
 %defattr(-,root,root,-)
-%doc LICENSE
-%doc README
+%license LICENSE
 /lib/udev/rules.d/85-regulatory.rules
 /sbin/crda
 /sbin/regdbdump
 %{_libdir}/libreg.so
-%{_mandir}/man8/crda.8.gz
-%{_mandir}/man8/regdbdump.8.gz
 
 %files devel
 %defattr(-,root,root,-)
@@ -63,3 +71,8 @@ rm -rf %{buildroot}
 %{_includedir}/reglib/regdb.h
 %{_includedir}/reglib/reglib.h
 
+%files doc
+%defattr(-,root,root,-)
+%{_mandir}/man8/%{name}.*
+%{_mandir}/man8/regdbdump.*
+%{_docdir}/%{name}-%{version}
