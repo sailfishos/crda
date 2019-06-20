@@ -9,6 +9,7 @@ Source0:    %{name}-%{version}.tar.bz2
 Requires:   udev
 Requires:   iw
 Requires:   wireless-regdb
+Requires:   filesystem >= 3.2
 BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libgcrypt)
 BuildRequires:  python
@@ -22,7 +23,7 @@ for communication. CRDA is intended to be run only through udev
 communication from the kernel.
 
 %package devel
-Summary:    Header files for use with libreg. 
+Summary:    Header files for use with libreg.
 Group:      Development/System
 Requires:   %{name} = %{version}-%{release}
 
@@ -49,7 +50,7 @@ PUBKEY_DIR=%{_libdir}/crda/pubkeys/ RUNTIME_PUBKEY_DIR=%{_libdir}/crda/pubkeys/ 
 
 %install
 rm -rf %{buildroot}
-%make_install
+make install DESTDIR=%{buildroot} SBINDIR=%{_sbindir} UDEV_RULE_DIR=%{_prefix}/lib/udev/rules.d
 
 mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
 install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} README
@@ -60,9 +61,9 @@ install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} README
 %files
 %defattr(-,root,root,-)
 %license LICENSE
-/lib/udev/rules.d/85-regulatory.rules
-/sbin/crda
-/sbin/regdbdump
+%{_libdir}/udev/rules.d/85-regulatory.rules
+%{_sbindir}/crda
+%{_sbindir}/regdbdump
 %{_libdir}/libreg.so
 
 %files devel
