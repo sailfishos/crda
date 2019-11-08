@@ -6,12 +6,13 @@ Group:      System/Networking
 License:    ISC
 URL:        http://wireless.kernel.org/en/developers/Regulatory/
 Source0:    %{name}-%{version}.tar.bz2
+Patch0:     0001-use-python3.patch
 Requires:   udev
 Requires:   iw
 Requires:   wireless-regdb
 BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libgcrypt)
-BuildRequires:  python
+BuildRequires:  python3-base
 BuildRequires:  python-M2Crypto
 BuildRequires:  wireless-regdb
 
@@ -40,6 +41,7 @@ Man pages for %{name}.
 
 %prep
 %setup -q -n %{name}-%{version}/crda
+%patch0 -p0
 
 %build
 # Drop ldconfig as it breaks the build in OBS. Also we need this only in package install time
