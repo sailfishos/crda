@@ -10,6 +10,7 @@ Source0:    %{name}-%{version}.tar.bz2
 # this set is:
 #  git format-patch --base=v4.14 v4.14..jolla/crda-4.14 -o ../rpm/
 Patch1:    0001-use-python3.patch
+Patch2:    0002-Reorganise-vars-and-use-LIBDIR-for-regulatory.bin.patch
 Requires:   udev
 Requires:   iw
 Requires:   wireless-regdb
@@ -47,10 +48,13 @@ Man pages for %{name}.
 # Drop ldconfig as it breaks the build in OBS. Also we need this only in package install time
 # which is handled by %post
 sed -i '/$(Q)ldconfig/d' Makefile
-PUBKEY_DIR=%{_libdir}/crda/pubkeys/ RUNTIME_PUBKEY_DIR=%{_libdir}/crda/pubkeys/ make %{?_smp_mflags}
+PUBKEY_DIR=%{_libdir}/crda/pubkeys/ RUNTIME_PUBKEY_DIR=%{_libdir}/crda/pubkeys/ LIBDIR=%{_libdir} V=1 make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
+# The %%make_install macro does not pass args or take same-line environment vars so:
+export LIBDIR=%{_libdir}
+export V=1
 %make_install
 
 mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
