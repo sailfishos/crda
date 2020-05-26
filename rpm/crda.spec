@@ -2,11 +2,14 @@ Name:       crda
 Summary:    Central regulatory domain agent for 802.11 wireless networking
 Version:    4.14
 Release:    1
-Group:      System/Networking
 License:    ISC
 URL:        http://wireless.kernel.org/en/developers/Regulatory/
 Source0:    %{name}-%{version}.tar.bz2
-Patch0:     0001-use-python3.patch
+# Apply patches to crda/ and then in ./crda use:
+#  git format-patch --base=<upstream-tag> <upstream-tag>..<sfos/tag> -o ../rpm/
+# this set is:
+#  git format-patch --base=v4.14 v4.14..jolla/crda-4.14 -o ../rpm/
+Patch1:    0001-use-python3.patch
 Requires:   udev
 Requires:   iw
 Requires:   wireless-regdb
@@ -24,7 +27,6 @@ communication from the kernel.
 
 %package devel
 Summary:    Header files for use with libreg. 
-Group:      Development/System
 Requires:   %{name} = %{version}-%{release}
 
 %description devel
@@ -32,7 +34,6 @@ Header files to make use of libreg for accessing regulatory info.
 
 %package doc
 Summary:   Documentation for %{name}
-Group:     Documentation
 Requires:  %{name} = %{version}-%{release}
 
 %description doc
@@ -40,8 +41,7 @@ Man pages for %{name}.
 
 
 %prep
-%setup -q -n %{name}-%{version}/crda
-%patch0 -p0
+%autosetup -p1 -n %{name}-%{version}/crda
 
 %build
 # Drop ldconfig as it breaks the build in OBS. Also we need this only in package install time

@@ -1,3 +1,3 @@
 [submodule "crda"]
 	path = crda
-	url = https://github.com/sailfishos-mirror/crda.git
+	url = https://github.com/sailfishos-mirror/crda
