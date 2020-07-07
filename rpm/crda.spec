@@ -1,8 +1,9 @@
+%global     _crdapath        /usr/lib/crda
+
 Name:       crda
 Summary:    Central regulatory domain agent for 802.11 wireless networking
 Version:    4.14
 Release:    1
-Group:      System/Networking
 License:    ISC
 URL:        http://wireless.kernel.org/en/developers/Regulatory/
 Source0:    %{name}-%{version}.tar.bz2
@@ -24,7 +25,6 @@ communication from the kernel.
 
 %package devel
 Summary:    Header files for use with libreg. 
-Group:      Development/System
 Requires:   %{name} = %{version}-%{release}
 
 %description devel
@@ -32,7 +32,6 @@ Header files to make use of libreg for accessing regulatory info.
 
 %package doc
 Summary:   Documentation for %{name}
-Group:     Documentation
 Requires:  %{name} = %{version}-%{release}
 
 %description doc
@@ -40,17 +39,17 @@ Man pages for %{name}.
 
 
 %prep
-%setup -q -n %{name}-%{version}/crda
-%patch0 -p0
+%autosetup -p0 -n %{name}-%{version}/crda
 
 %build
 # Drop ldconfig as it breaks the build in OBS. Also we need this only in package install time
 # which is handled by %post
 sed -i '/$(Q)ldconfig/d' Makefile
-PUBKEY_DIR=%{_libdir}/crda/pubkeys/ RUNTIME_PUBKEY_DIR=%{_libdir}/crda/pubkeys/ make %{?_smp_mflags}
+PUBKEY_DIR=%{_crdapath}/pubkeys/ RUNTIME_PUBKEY_DIR=%{_crdapath}/pubkeys/ LIBDIR=%{_libdir} make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
+export LIBDIR=%{_libdir}
 %make_install
 
 mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
