@@ -5,7 +5,7 @@ Summary:    Central regulatory domain agent for 802.11 wireless networking
 Version:    4.14
 Release:    1
 License:    ISC
-URL:        http://wireless.kernel.org/en/developers/Regulatory/
+URL:        https://github.com/sailfishos/crda
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     0001-use-python3.patch
 Requires:   udev
